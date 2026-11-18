@@ -1,0 +1,12 @@
+title: LineageOS KernelSU Next + SUSFS kernels
+description: KernelSU Next + SUSFS kernels for LineageOS devices
+keywords: kernelsu next, susfs, lineageos, oneplus 11, salami, kernel, root
+theme: jekyll-theme-cayman
+plugins:
+  - jekyll-seo-tag
+  - jekyll-relative-links
+relative_links:
+  enabled: true
+  collections: false
+include: [README.md]
+exclude: [src, tests, scripts, configs, manifests, layout, logs, windows, uv.lock, pyproject.toml]
