@@ -132,7 +132,12 @@ jobs:
 
       - name: Fetch SUSFS and Wild kernel_patches
         run: |
-          git clone -b gki-android13-5.15 https://gitlab.com/simonpunk/susfs4ksu.git susfs4ksu
+          for i in 1 2 3; do
+            rm -rf susfs4ksu
+            if git clone --depth 50 -b gki-android13-5.15 https://gitlab.com/simonpunk/susfs4ksu.git susfs4ksu; then break; fi
+            sleep 5
+          done
+          git -C susfs4ksu fetch --unshallow 2>/dev/null || true
           git -C susfs4ksu checkout "${{ inputs.susfs_ref || '2ad297356931ba06b4edc0860f42fdd143b02ffd' }}"
           # pinned: fix patches matching KSUN 33388 (4cb8ee68); newer commits target newer KSUN
           git clone https://github.com/WildKernels/kernel_patches.git kernel_patches
