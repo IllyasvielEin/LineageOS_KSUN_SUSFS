@@ -205,7 +205,8 @@ jobs:
           if grep -q 'VMA_PAD_START(' fs/proc/task_mmu.c && ! grep -qE '#include <linux/pgsize_migration(_inline)?\.h>|define VMA_PAD_START' fs/proc/task_mmu.c; then
             sed -i '\|#include "internal.h"|a\\n#ifndef VMA_PAD_START\n#define VMA_PAD_START(vma) ((vma)->vm_end)\n#endif' fs/proc/task_mmu.c
           fi
-          if [ -n "$(find . -name '*.rej')" ]; then find . -name '*.rej' -exec sh -c 'echo "== $1"; cat "$1"' _ {} \; ; exit 1; fi
+          rejs=$(git ls-files --others '*.rej')
+          if [ -n "$rejs" ]; then for f in $rejs; do echo "== $f"; cat "$f"; done; exit 1; fi
 
           # susfs <= 1.5.12 needs manual hooks
           if [ "$(printf '%s\n' "${v#v}" 1.5.12 | sort -V | head -n1)" = "${v#v}" ]; then
