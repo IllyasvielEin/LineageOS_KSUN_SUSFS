@@ -319,6 +319,7 @@ jobs:
             -e 's/^device.name4=.*/device.name4=/' -e 's/^device.name5=.*/device.name5=/' \
             -e 's/^supported.versions=.*/supported.versions=/' \
             -e 's|^BLOCK=.*|BLOCK=boot;|' -e 's/^IS_SLOT_DEVICE=.*/IS_SLOT_DEVICE=1;/' \
+            -e '/^dump_boot;/,/^write_boot;/c\split_boot;\nflash_boot;' \
             ak3/anykernel.sh
           cp kernel/out/arch/arm64/boot/Image ak3/
           name="AK3_socrates_LOS${LOS_VER}_KSUN${KSUVER}_SUSFS${SUSVER}_${{ steps.stock.outputs.date }}.zip"
